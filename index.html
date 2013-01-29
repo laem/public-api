@@ -163,9 +163,35 @@ If you don't have one, send an email to <a href="mailto:hello@qunb.com">hello@qu
 <span class="p">}</span>
 </pre></div>
 
-<p><code>dimId</code> is the enriched <code>Dimension</code> id.
-<code>sameAsCandidateNodes</code> are the enriched <code>Nodes</code> coming from qunb. As you can notice, for each one of your local nodes, there can be one or several matches in the qunb graph. Each match has a clean <code>uri</code> which can either be created on-the-fly for your node if it didn't exist, or come from the qunb graph. For dates we use <code>time:2011</code>. For places, we use geonames ids like <code>geonames:3017382</code> (France).
-<code>level</code> can provide more information about the position of your node in the graph.</p>
+<p><code>dimId</code> is the enriched <code>Dimension</code> id.</p>
+
+<p><code>sameAsCandidateNodes</code> are the enriched <code>Nodes</code> coming from qunb. As you can notice, for each one of your local nodes, there can be one or several matches in the qunb graph. Each match has a clean <code>uri</code> which can either be created on-the-fly for your node if it didn't exist, or come from the qunb graph. For dates we use <code>time:2011</code>. For places, we use geonames ids like <code>geonames:3017382</code> (France).</p>
+
+<p><code>level</code> can provide more information about the position of your node in the graph (YEAR, DECADE, MONTH,...).</p>
+
+<h3>Step 3: Upload your data</h3>
+
+<p>Ok now let's get to the fun part: uploading a new <code>Series</code>.</p>
+
+<p>The series upload service is available at this url: <code>/api/v1/datadesk/series</code>.</p>
+
+<p>For this example, let's say I want to upload this table:
+<img src="https://s3-eu-west-1.amazonaws.com/uploads-eu.hipchat.com/17681/76016/1rtmztpb9bhqgvz/Screen%20Shot%202013-01-29%20at%2018.29.16.png" alt="data table with 8 values in 3 dimensions"></p>
+
+<p><strong>Request Type:</strong> <code>POST</code></p>
+
+<p><strong>Request Headers:</strong></p>
+
+<ul>
+<li>
+<code>X-QunbUserKey</code>: your user key, as explain in step 1.</li>
+</ul><p><strong>Request Payload:</strong></p>
+
+<div class="highlight"><pre>
+</pre></div>
+
+<p><code>dimGroup</code> is the type of dimension. Possible values are: <code>TIME</code>, <code>GEO</code> and <code>OTHER</code>.
+<code>localNodes</code> is an array of possible values for your dimension. Each node is represented by <code>label</code> which is simply the string representation of your node and <code>uri</code> which is a unique id for your node.</p>
 
 <pre><code>$ test
 </code></pre>
