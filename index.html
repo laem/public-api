@@ -173,10 +173,13 @@ If you don't have one, send an email to <a href="mailto:hello@qunb.com">hello@qu
 
 <p>Ok now let's get to the fun part: uploading a new <code>Series</code>.</p>
 
-<p>The series upload service is available at this url: <code>/api/v1/datadesk/series</code>.</p>
-
-<p>For this example, let's say I want to upload this table:
+<p>For this example, let's say I want to upload this table (let's say it's the partition of middle-school students):
 <img src="https://s3-eu-west-1.amazonaws.com/uploads-eu.hipchat.com/17681/76016/1rtmztpb9bhqgvz/Screen%20Shot%202013-01-29%20at%2018.29.16.png" alt="data table with 8 values in 3 dimensions"></p>
+
+<p>You can see that we have a data series with 3 dimensions: 'Place of birth' (of type <code>GEO</code>), 'Year' (of type <code>TIME</code>) and 'Gender' (of type <code>OTHER</code>). Each dimension has 2 nodes for a total of 8 points.
+We used the process explained in step 2 to enrich all our nodes and we are ready to upload.</p>
+
+<p>The series upload service is available at this url: <code>/api/v1/datadesk/series</code>.</p>
 
 <p><strong>Request Type:</strong> <code>POST</code></p>
 
@@ -187,14 +190,240 @@ If you don't have one, send an email to <a href="mailto:hello@qunb.com">hello@qu
 <code>X-QunbUserKey</code>: your user key, as explain in step 1.</li>
 </ul><p><strong>Request Payload:</strong></p>
 
-<div class="highlight"><pre>
+<div class="highlight"><pre><span class="p">{</span>
+   <span class="nt">"title"</span><span class="p">:</span><span class="s2">"Partition of pupiles in middle school"</span><span class="p">,</span>
+   <span class="nt">"description"</span><span class="p">:</span><span class="s2">"I don't have anything to add your honor."</span><span class="p">,</span>
+   <span class="nt">"category"</span><span class="p">:[</span>
+
+   <span class="p">],</span>
+   <span class="nt">"subcategory"</span><span class="p">:[</span>
+
+   <span class="p">],</span>
+   <span class="nt">"source"</span><span class="p">:{</span>
+      <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"test@qunb.com"</span><span class="p">,</span>
+      <span class="nt">"label"</span><span class="p">:</span><span class="s2">"test@qunb.com"</span>
+   <span class="p">},</span>
+   <span class="nt">"unit"</span><span class="p">:{</span>
+      <span class="nt">"id"</span><span class="p">:</span><span class="s2">"PC"</span>
+   <span class="p">},</span>
+   <span class="nt">"dimensions"</span><span class="p">:[</span>
+      <span class="p">{</span>
+         <span class="nt">"id"</span><span class="p">:</span><span class="s2">"other"</span><span class="p">,</span>
+         <span class="nt">"label"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span>
+         <span class="nt">"preferredAggMethod"</span><span class="p">:</span><span class="s2">"AVG"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+         <span class="nt">"id"</span><span class="p">:</span><span class="s2">"geo_s"</span><span class="p">,</span>
+         <span class="nt">"label"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span>
+         <span class="nt">"preferredAggMethod"</span><span class="p">:</span><span class="s2">"AVG"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+         <span class="nt">"id"</span><span class="p">:</span><span class="s2">"time_d"</span><span class="p">,</span>
+         <span class="nt">"label"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span>
+         <span class="nt">"preferredAggMethod"</span><span class="p">:</span><span class="s2">"AVG"</span>
+      <span class="p">}</span>
+   <span class="p">],</span>
+   <span class="nt">"points"</span><span class="p">:[</span>
+      <span class="p">{</span>
+         <span class="nt">"value"</span><span class="p">:</span><span class="s2">"55.7"</span><span class="p">,</span>
+         <span class="nt">"nodes"</span><span class="p">:[</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"other"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"Male"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"Level1"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"datadesk:male"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"geo_s"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"France"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"COUNTRY"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"geonames:3017382"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"time_d"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"1986"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"YEAR"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"time:1986"</span>
+            <span class="p">}</span>
+         <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+         <span class="nt">"value"</span><span class="p">:</span><span class="s2">"52.3"</span><span class="p">,</span>
+         <span class="nt">"nodes"</span><span class="p">:[</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"other"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"Male"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"Level1"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"datadesk:male"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"geo_s"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"France"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"COUNTRY"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"geonames:3017382"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"time_d"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"1987"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"YEAR"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"time:1987"</span>
+            <span class="p">}</span>
+         <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+         <span class="nt">"value"</span><span class="p">:</span><span class="s2">"58.9"</span><span class="p">,</span>
+         <span class="nt">"nodes"</span><span class="p">:[</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"other"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"Male"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"Level1"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"datadesk:male"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"geo_s"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"Germany"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"COUNTRY"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"geonames:2921044"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"time_d"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"1986"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"YEAR"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"time:1986"</span>
+            <span class="p">}</span>
+         <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+         <span class="nt">"value"</span><span class="p">:</span><span class="s2">"54.1"</span><span class="p">,</span>
+         <span class="nt">"nodes"</span><span class="p">:[</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"other"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"Male"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"Level1"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"datadesk:male"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"geo_s"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"Germany"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"COUNTRY"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"geonames:2921044"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"time_d"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"1987"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"YEAR"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"time:1987"</span>
+            <span class="p">}</span>
+         <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+         <span class="nt">"value"</span><span class="p">:</span><span class="s2">"44.3"</span><span class="p">,</span>
+         <span class="nt">"nodes"</span><span class="p">:[</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"other"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"Femaile"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"Level1"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"datadesk:femaile"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"geo_s"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"France"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"COUNTRY"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"geonames:3017382"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"time_d"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"1986"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"YEAR"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"time:1986"</span>
+            <span class="p">}</span>
+         <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+         <span class="nt">"value"</span><span class="p">:</span><span class="s2">"47.7"</span><span class="p">,</span>
+         <span class="nt">"nodes"</span><span class="p">:[</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"other"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"Female"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"Level1"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"datadesk:female"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"geo_s"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"France"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"COUNTRY"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"geonames:3017382"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"time_d"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"1987"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"YEAR"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"time:1987"</span>
+            <span class="p">}</span>
+         <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+         <span class="nt">"value"</span><span class="p">:</span><span class="s2">"41.1"</span><span class="p">,</span>
+         <span class="nt">"nodes"</span><span class="p">:[</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"other"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"Female"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"Level1"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"datadesk:female"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"geo_s"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"Germany"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"COUNTRY"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"geonames:2921044"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"time_d"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"1986"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"YEAR"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"time:1986"</span>
+            <span class="p">}</span>
+         <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+         <span class="nt">"value"</span><span class="p">:</span><span class="s2">"45.9"</span><span class="p">,</span>
+         <span class="nt">"nodes"</span><span class="p">:[</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"other"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"Female"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"Level1"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"datadesk:female"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"geo_s"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"Germany"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"COUNTRY"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"geonames:2921044"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+               <span class="nt">"dimId"</span><span class="p">:</span><span class="s2">"time_d"</span><span class="p">,</span>
+               <span class="nt">"label"</span><span class="p">:</span><span class="s2">"1987"</span><span class="p">,</span>
+               <span class="nt">"level"</span><span class="p">:</span><span class="s2">"YEAR"</span><span class="p">,</span>
+               <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"time:1987"</span>
+            <span class="p">}</span>
+         <span class="p">]</span>
+      <span class="p">}</span>
+   <span class="p">]</span>
+<span class="p">}</span>
 </pre></div>
 
-<p><code>dimGroup</code> is the type of dimension. Possible values are: <code>TIME</code>, <code>GEO</code> and <code>OTHER</code>.
-<code>localNodes</code> is an array of possible values for your dimension. Each node is represented by <code>label</code> which is simply the string representation of your node and <code>uri</code> which is a unique id for your node.</p>
+<p>Ok so the payload pretty much explains itself. Make sure you use the <code>dimId</code> and <code>uri</code> that were returned by the analyze service we went through in step 2.</p>
 
-<pre><code>$ test
-</code></pre>
+<p>For the unit, we send an id. Here is a list of units with the corresponding id.
+// TODO: ADD LIST OF UNITS</p>
+
+<p>If it worked, you should get a 200 status code and a response.</p>
+
+<p><strong>Response</strong>: the id of your uploaded series. Go check it out live at: <a href="http://www.qunb.com/%5BseriesId%5D">http://www.qunb.com/[seriesId]</a> !</p>
+
+<h2>Retrieving Data</h2>
+
+<p>// TODO</p>
 
 <h3>Support</h3>
 
