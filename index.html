@@ -1,38 +1,62 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>qunb public api by qunb</title>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="qunb public api : Upload and retrieve data series like it's 2013! v0.1" />
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>qunb public api</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>qunb public api</h1>
-        <p>Upload and retrieve data series like it's 2013! v0.1</p>
 
-        <p class="view"><a href="https://github.com/qunb/public-api">View the Project on GitHub <small>qunb/public-api</small></a></p>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/qunb/public-api">View on GitHub</a>
 
+          <h1 id="project_title">qunb public api</h1>
+          <h2 id="project_tagline">Upload and retrieve data series like it's 2013! v0.1</h2>
 
-        <ul>
-          <li><a href="https://github.com/qunb/public-api/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/qunb/public-api/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/qunb/public-api">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/qunb/public-api/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/qunb/public-api/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
         <h3>Welcome to qunb's public api documentation</h3>
 
 <p>This is the first public version of our api documentation. We're doing our best to make it available as soon as possible to confront it with our dear user's needs, even if that means publishing an API that still has some bugs and limitations. Please take that into consideration and help us make things better! :)</p>
 
-<h3>Core concepts</h3>
+<h2>Core concepts</h2>
+
+<h3>Series</h3>
+
+<p><code>Series</code> correspond to a single measure (ex: GDP, Public Debt, Temperature). It contains a set of <code>Points</code> (values with coordinates). All these <code>Points</code> have the same unit and come from the same source. The coordinates of the <code>Points</code> correspond to their position on the different <code>Dimensions</code>. Each series has a fixed set of <code>Dimensions</code>. <code>Series</code> are the highest level of abstraction.</p>
+
+<h3>Dimensions</h3>
+
+<p><code>Dimensions</code> correspond to degrees of freedom in a <code>Series</code>. For instance, the GDP will probably have two dimensions: time and place. A <code>Point</code> of the GDP series would be represented by (value, time, place), for instance (2.580, 2012, France) where unit would be 'Billions of dollars'. Each point in a <code>Series</code> has a fixed number of coordinates, each coordinate corresponding to a <code>Dimension</code>.</p>
+
+<p><code>Dimensions</code> can be shared among several <code>Series</code>. For instance 'Time' is a widely used <code>Dimension</code>. It's shared among all time-series. Thanks to that, all time-series are comparable on qunb.
+Another widely used <code>Dimension</code> is 'Place'.</p>
+
+<h3>Nodes</h3>
+
+<p><code>Nodes</code> are the possible values of a <code>Dimension</code>. Each <code>Dimension</code> in a <code>Series</code> has a set of <code>Nodes</code>. Let's take the GDP example again. Let's say we have GDP measure for France, Germany and the United-States for years 2010, 2011 and 2012. 'France', 'Germany' and 'Unites-States' are the three <code>Nodes</code> of the 'Place' <code>Dimension</code> for the GDP <code>Series</code>. '2010', '2011' and '2012' are the three <code>Nodes</code> of the 'Time' <code>Dimension</code>.</p>
+
+<p><code>Nodes</code> can be represented by a graph with multiple levels. For instance 'France' and 'Germany' can be considered as children of the 'Europe' node and also children of the 'European Union' node. We have a set of api entry-points to navigate through the graph. We'll explain that a bit later.</p>
+
+<h3>Points</h3>
+
+<p><code>Points</code> are what they sound like: values with coordinates.</p>
 
 <pre><code>$ test
 </code></pre>
@@ -41,12 +65,17 @@
 
 <p>Having trouble with our API? Feel free to contact <a href="mailto:hello@qunb.com">hello@qunb.com</a> for some help!</p>
       </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/qunb">qunb</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">qunb public api maintained by <a href="https://github.com/qunb">qunb</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+
     
+
   </body>
 </html>
