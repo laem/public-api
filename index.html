@@ -58,6 +58,61 @@ Another widely used <code>Dimension</code> is 'Place'.</p>
 
 <p><code>Points</code> are what they sound like: values with coordinates.</p>
 
+<h2>Digging in the upload API</h2>
+
+<p>Now that you are familiar with the core concepts of data on qunb, let's dive in the part of the api that actually let's you upload data to qunb.</p>
+
+<h3>Step 1: Set up an account</h3>
+
+<p>To upload data on qunb, you're going to need a user account and be logged in.
+If you don't have one, send an email to <a href="mailto:hello@qunb.com">hello@qunb.com</a> and we'll send you one.</p>
+
+<p>Once you're logged in our website, go check your cookies. Your access key will be in the <code>X-QunbUserKey</code> cookie. I know we can make this key more easily accessible but we honestly don't give a damn. We're all hackers around here, right?</p>
+
+<p>Ok copy-paste that string somewhere, we're going to need for step 3.</p>
+
+<h3>Step 2: Enrich your data</h3>
+
+<p>The cool thing about qunb is that we enrich your data to make it comparable. Basically, that means you enter words like 'France', 'Paris', '2012' and we recognize the places as places and dates as dates. So we turn them into <code>Nodes</code>.</p>
+
+<p>We have a cool little service for data-enrichment called 'Analyze' (don't ask me how we found such an original name).</p>
+
+<p>It's available at this url: <code>/api/v1/datadesk/analyze</code>.</p>
+
+<p>So you're going to <strong>call this service once for each of your dimensions</strong> and pass it your nodes.</p>
+
+<p><em>Request Type:</em> <code>POST</code></p>
+
+<p><em>Request Payload:</em></p>
+
+<div class="highlight"><pre><span class="p">{</span>
+   <span class="nt">"dimGroup"</span><span class="p">:</span><span class="s2">"TIME"</span><span class="p">,</span>
+   <span class="nt">"localNodes"</span><span class="p">:[</span>
+      <span class="p">{</span>
+         <span class="nt">"label"</span><span class="p">:</span><span class="s2">"2010"</span><span class="p">,</span>
+         <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"test@qunb.com:MjAwOA"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+         <span class="nt">"label"</span><span class="p">:</span><span class="s2">"2011"</span><span class="p">,</span>
+         <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"test@qunb.com:MjAwOQ"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+         <span class="nt">"label"</span><span class="p">:</span><span class="s2">"2012"</span><span class="p">,</span>
+         <span class="nt">"uri"</span><span class="p">:</span><span class="s2">"test@qunb.com:MjAxMA"</span>
+      <span class="p">}</span>
+   <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+<p><code>dimGroup</code> is the type of dimension. Possible values are: <code>TIME</code>, <code>GEO</code> and <code>OTHER</code>.
+<code>localNodes</code> is an array of possible values for your dimension. Each node is represented by <code>label</code> which is simply the string representation of your node and <code>uri</code> which is a unique id for your node.</p>
+
+<p><strong>What's the unique id for?</strong>
+When the service sends you back the enriched versions of your nodes, this id helps you keep track of the original nodes.</p>
+
+<p><strong>What should I use?</strong>
+The format is <code>[email]:[random_string]</code></p>
+
 <pre><code>$ test
 </code></pre>
 
